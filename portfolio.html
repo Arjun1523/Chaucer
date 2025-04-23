@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Image Gallery</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      /* New dark color palette with vibrant accents */
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #e8edf5;
+        color: #333333;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 40px 30px;
+        border-radius: 20px;
+        background: #d0e6e6;
+        box-shadow: 0 0 25px #6cb4b8;
+        color: #4a6a6a;
+        animation: fadeInScale 1s ease forwards;
+      }
+
+      @keyframes fadeInScale {
+        0% {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 2.8rem;
+        color: #00f0ff;
+        text-shadow: 0 0 10px #00f0ff;
+        letter-spacing: 2px;
+        background-color: #16213e;
+        padding: 10px 20px;
+        border-radius: 12px;
+        display: block;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .image-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        justify-items: center;
+      }
+
+      .image-card {
+        width: 100%;
+        max-width: 350px;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 0 20px #00f0ff;
+        background: #0f3460;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        cursor: pointer;
+      }
+
+      .image-card:hover {
+        transform: scale(1.05) rotate(2deg);
+        box-shadow: 0 0 30px #6cb4b8;
+      }
+
+      .image-card img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 20px 20px 0 0;
+      }
+
+      .image-caption {
+        padding: 20px;
+        background: #16213e;
+        color: #a0e7e5;
+        text-align: center;
+        border-radius: 0 0 20px 20px;
+      }
+
+      .image-caption h3 {
+        margin: 0 0 12px 0;
+        font-size: 1.6rem;
+        color: #6cb4b8;
+        text-shadow: 0 0 8px #6cb4b8;
+      }
+
+      .image-caption p {
+        margin: 0;
+        font-size: 1.1rem;
+        line-height: 1.4;
+      }
+
+      .back-button {
+        margin: 30px auto 20px auto;
+        text-align: center;
+        width: 120px;
+        height: 40px;
+      }
+
+      .colorful-button {
+        background-color: #6cb4b8;
+        border: none;
+        border-radius: 15px;
+        color: #fff;
+        padding: 12px 25px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 0 15px #6cb4b8;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .colorful-button:hover {
+        background-color: #00f0ff;
+        color: #0f3460;
+        box-shadow: 0 0 20px #00f0ff;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .container {
+          padding: 25px 15px;
+        }
+
+        h1 {
+          font-size: 2rem;
+          margin-bottom: 30px;
+        }
+
+        .image-gallery {
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          gap: 20px;
+        }
+
+        .image-card {
+          max-width: 100%;
+        }
+      }
+    </style>
+</head>
+<body>
+    <div class="back-button">
+        <button class="colorful-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
+    </div>
+    <div class="container">
+        <h1>Chaucer School, New Library Block</h1>
+        <div class="image-gallery">
+            <div class="image-card">
+                <img src="1.png" alt="Image 1" />
+                <div class="image-caption">
+                    <h3>Classroom, Library, and IT Suites</h3>
+                    <p>Modern, well-equipped schools that promote learning are essential as student numbers rise. The Sheffield Chaucer School project, which built a new Library Learning Centre, classrooms, and IT suites, is crucial to this effort.</p>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="2.png" alt="Image 2" />
+                <div class="image-caption">
+                    <h3>IT Suites</h3>
+                    <p>The IT suites were equipped with a sturdy network backbone, server rooms, and data storage facilities to ensure fast internet connectivity and dependable access to digital resources which acts as a central hub for digital learning and collaboration among students and teachers.</p>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="3.png" alt="Image 4" />
+                <div class="image-caption">
+                    <h3>Site location</h3>
+                    <p>The library room was specifically constructed to allow a range of activities, including solitary study, group talks, and research.</p>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="4.png" alt="Image 5" />
+                <div class="image-caption">
+                    <h3>Architectural View of the New Library Block</h3>
+                    <p>The building envelope was optimized for energy efficiency and thermal comfort by incorporating passive design principles such as orientation, shading, and natural ventilation.</p>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="5.png" alt="Image 5" />
+                <div class="image-caption">
+                    <h3>IT suite look</h3>
+                    <p>The building envelope was optimized for energy efficiency and thermal comfort by incorporating passive design principles such as orientation, shading, and natural ventilation.</p>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="6.png" alt="Image 5" />
+                <div class="image-caption">
+                    <h3>Classroom with library</h3>
+                    <p>It will serve as a modern, flexible space for students and teachers. This new building will be strategically designed to cater to the needs of a growing student population and provide cutting-edge IT facilities to support digital learning initiatives.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Comment Section -->
+        <div class="comment-section">
+          <h2>Leave a Comment</h2>
+          <form id="commentForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required />
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+
+            <label for="comment">Comment:</label>
+            <textarea id="comment" name="comment" rows="4" required></textarea>
+
+            <button type="submit" class="colorful-button">Submit</button>
+          </form>
+          <p id="responseMessage" style="display:none; margin-top: 15px; font-weight: bold; color: #00f0ff;"></p>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Function to go back to the previous page
+      function goBack() {
+        window.history.back();
+      }
+
+      // Handle comment form submission
+      document.getElementById('commentForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Here you would normally send the form data to the server
+        // For this demo, just show the thank you message
+
+        const responseMessage = document.getElementById('responseMessage');
+        responseMessage.textContent = 'Thank you for giving a comment';
+        responseMessage.style.display = 'block';
+
+        // Clear the form
+        this.reset();
+      });
+    </script>
+    <style>
+      /* Comment section styles */
+      .comment-section {
+        margin-top: 40px;
+        padding: 20px;
+        background: #16213e;
+        border-radius: 20px;
+        color: #a0e7e5;
+        box-shadow: 0 0 20px #6cb4b8;
+      }
+
+      .comment-section h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #00f0ff;
+        text-shadow: 0 0 10px #00f0ff;
+      }
+
+      .comment-section form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .comment-section label {
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+
+      .comment-section input,
+      .comment-section textarea {
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+        font-size: 1rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .comment-section input:focus,
+      .comment-section textarea:focus {
+        outline: 2px solid #00f0ff;
+        background: #0f3460;
+        color: #a0e7e5;
+      }
+
+      /* Responsive adjustments for comment section */
+      @media (max-width: 768px) {
+        .comment-section form {
+          max-width: 100%;
+        }
+      }
+    </style>
+</body>
+</html>

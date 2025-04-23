@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Top Navigation Bar</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      /* New color palette: dark background with vibrant accent colors */
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #e8edf5;
+        color: #333333;
+      }
+
+      .wrapper {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+
+      /* Navigation bar with dark background and neon accent */
+      .top_navbar {
+        background-color: #0f3460;
+        border-radius: 0 0 20px 20px;
+        box-shadow: 0 0 15px #00f0ff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 40px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        animation: slideDown 0.6s ease forwards;
+      }
+
+      @keyframes slideDown {
+        0% {
+          transform: translateY(-100%);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .logo a {
+        font-size: 2rem;
+        font-weight: 900;
+        color: #00f0ff;
+        text-decoration: none;
+        letter-spacing: 2px;
+        text-shadow: 0 0 8px #00f0ff;
+        transition: color 0.3s ease;
+      }
+
+      .logo a:hover {
+        color: #6cb4b8;
+        text-shadow: 0 0 12px #6cb4b8;
+      }
+
+      .nav_menu {
+        display: flex;
+        gap: 30px;
+      }
+
+      .nav_menu ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+      }
+
+      .nav_menu li {
+        margin: 0;
+      }
+
+      .nav_menu a {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        color: #a0e7e5;
+        text-decoration: none;
+        font-size: 1.2rem;
+        border-radius: 12px;
+        transition: background-color 0.4s ease, color 0.4s ease,
+          transform 0.3s ease;
+        box-shadow: 0 0 5px transparent;
+      }
+
+      .nav_menu a:hover,
+      .nav_menu a.active {
+        background-color: #6cb4b8;
+        color: #fff;
+        transform: scale(1.1) rotate(3deg);
+        box-shadow: 0 0 15px #6cb4b8;
+      }
+
+      .nav_menu .icon {
+        margin-right: 10px;
+        color: #00f0ff;
+        transition: color 0.3s ease;
+      }
+
+      .nav_menu a:hover .icon,
+      .nav_menu a.active .icon {
+        color: #fff;
+      }
+
+      /* Main content with new layout and animation */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      .main_body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        animation: fadeInUp 1s ease forwards;
+        margin: 0;
+      }
+
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .item_wrap {
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: box-shadow 0.3s ease;
+        padding: 0;
+        background: transparent;
+        box-shadow: none;
+        border-radius: 0;
+      }
+
+      .item_wrap:hover {
+        box-shadow: 0 0 30px #6cb4b8;
+      }
+
+      .item img {
+        width: 80vw;
+        height: 80vh;
+        object-fit: cover;
+        border-radius: 0;
+        box-shadow: none;
+        transition: transform 0.4s ease;
+      }
+
+      .item img:hover {
+        transform: scale(1.05) rotate(1deg);
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .top_navbar {
+          flex-direction: column;
+          align-items: center;
+          padding: 15px 20px;
+          border-radius: 0 0 15px 15px;
+        }
+
+        .nav_menu ul {
+          flex-direction: row;
+          width: 100%;
+          justify-content: center;
+          gap: 20px;
+        }
+
+        .nav_menu a {
+          padding: 10px 15px;
+          font-size: 1rem;
+        }
+
+        .main_body {
+          height: 100vh;
+          padding: 0;
+        }
+
+        .item_wrap {
+          padding: 0;
+          max-width: 100%;
+          height: 100%;
+        }
+      }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="top_navbar">
+            <div class="logo">
+                <a href="https://www.chaucer.sheffield.sch.uk/">Chaucer School, UK</a>
+            </div>
+            <div class="nav_menu">
+                <ul>
+                    <li>
+                        <a href="dashboard.html">
+                            <span class="icon"><i class="fas fa-chart-pie"></i></span>
+                            <span class="list">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="portfolio.html">
+                            <span class="icon"><i class="fas fa-border-all"></i></span>
+                            <span class="list">Portfolio</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main_body">
+            <div class="item_wrap">
+                <div class="item">
+                    <img src="Main.jpg" alt="Architectural view of King Ecgbert School Library Block" />
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

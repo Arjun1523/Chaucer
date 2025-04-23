@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* New dark color palette with vibrant accents */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #e8edf5;
+            color: #333333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 30px;
+            background: #d0e6e6;
+            border-radius: 20px;
+            box-shadow: 0 0 25px #6cb4b8;
+            color: #4a6a6a;
+            animation: fadeInScale 1s ease forwards;
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .chart-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .chart-column {
+            flex: 1 1 45%;
+            padding: 15px;
+            background: #0f3460;
+            border-radius: 15px;
+            box-shadow: 0 0 15px #00f0ff;
+            color: #a0e7e5;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .chart-column:hover {
+            box-shadow: 0 0 25px #6cb4b8;
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #00f0ff;
+            text-shadow: 0 0 8px #00f0ff;
+        }
+
+        .back-button {
+            margin: 20px auto 10px auto;
+            text-align: center;
+            height: 30px;
+            width: 100px;
+        }
+
+        .colorful-button {
+            background-color: #6cb4b8;
+            margin-bottom: 20px;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 8px 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 0 10px #6cb4b8;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .colorful-button:hover {
+            background-color: #00f0ff;
+            color: #0f3460;
+            box-shadow: 0 0 15px #00f0ff;
+        }
+
+        /* Table Styling */
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: #0f3460;
+            border-radius: 15px;
+            box-shadow: 0 0 15px #00f0ff;
+            color: #a0e7e5;
+            overflow: hidden;
+        }
+
+        th, td {
+            border: none;
+            padding: 14px 18px;
+            text-align: left;
+            color: #e0e0e0;
+        }
+
+        th {
+            background: #16213e;
+            font-weight: 700;
+            color: #00f0ff;
+            text-shadow: 0 0 6px #00f0ff;
+        }
+
+        tr:nth-child(even) {
+            background: #0f3460;
+        }
+
+        tr:hover {
+            background-color: #6cb4b8;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 900px) {
+            .chart-row {
+                flex-direction: column;
+            }
+
+            .chart-column {
+                margin-bottom: 20px;
+                flex: 1 1 100%;
+            }
+
+            table {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="back-button">
+        <button class="colorful-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
+    </div>
+    <div class="container">
+        <div class="chart-row">
+            <div class="chart-column">
+                <h2>Structural Components Distribution</h2>
+                <canvas id="barChart1" width="400" height="200"></canvas>
+            </div>
+            <div class="chart-column">
+                <h2>Finishing Materials Breakdown</h2>
+                <canvas id="barChart2" width="400" height="200"></canvas>
+            </div>
+        </div>
+        <div class="chart-row">
+            <div class="chart-column">
+                <h2>Fittings and Installations Overview</h2>
+                <canvas id="barChart3" width="400" height="200"></canvas>
+            </div>
+            <div class="chart-column">
+                <h2>Site Works Summary</h2>
+                <canvas id="barChart4" width="400" height="200"></canvas>
+            </div>
+        </div>
+        <div class="chart-row">
+            <div class="chart-column">
+                <h2>Project Preliminaries and Contingencies</h2>
+                <canvas id="barChart5" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data for the pie charts
+        const pieLabels1 = ['Frame Elements', 'Upper Floors', 'Roof Structure', 'Staircases', 'External Walls', 'Windows and Doors', 'Internal Walls', 'Internal Doors'];
+        const pieValues1 = [6075,87075,99900,30375,79650,54000,96525,13500];
+        const pieLabels2 = ['Wall Finishes', 'Floor Finishes', 'Ceiling Finishes'];
+        const pieValues2 = [96525,57375,20925];
+        const pieLabels3 = ['Fittings & Furnishings', 'Sanitary Appliances', 'Services Equipment', 'Disposal Installations', 'Water Installations', 'Heat Source', 'Heating & Air Conditioning', 'Ventilating Systems', 'Electrical Installations', 'Fuel Installations', 'Lift & Conveyor Installations', 'Fire & Lightning Protection', 'Communications & Security', 'Special Installations', 'Builders Work', 'Commissioning Management'];
+        const pieValues3 = [37125,18900, 0, 0, 0, 0,176850,81000,43875, 0, 0, 0, 0, 0,40500, 0];
+
+        // Data for the bar charts
+        const barLabels1 = ['Site Works', 'Drainage', 'External Services', 'Minor Building Works', 'Demolition & External Work'];
+        const barValues1 = [108000,41850,79650,8100,15525];
+
+        const barLabels2 = ['Preliminaries', 'Contingencies'];
+        const barValues2 = [10, 33750];
+
+        // Creating bar charts
+        new Chart(document.getElementById('barChart1'), {
+            type: 'bar',
+            data: {
+                labels: pieLabels1,
+                datasets: [{
+                    label: 'Quantity',
+                    data: pieValues1,
+                    backgroundColor: ['#6cb4b8', '#00f0ff', '#ff9f1c', '#6cb4b8', '#00f0ff', '#ff9f1c', '#6cb4b8', '#00f0ff']
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'right',
+                    align: 'start',
+                    labels: {
+                        boxWidth: 20,
+                        fontColor: '#ffffff'
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        beginAtZero: true,
+                        ticks: {
+                            fontColor: '#ffffff',
+                            color: '#ffffff'
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            fontColor: '#ffffff',
+                            color: '#ffffff'
+                        }
+                    }]
+                }
+            }
+        });
+        new Chart(document.getElementById('barChart2'), {
+            type: 'bar',
+            data: {
+                labels: pieLabels2,
+                datasets: [{
+                    label: 'Quantity',
+                    data: pieValues2,
+                    backgroundColor: ['#6cb4b8', '#00f0ff', '#ff9f1c']
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'right',
+                    align: 'start',
+                    labels: {
+                        boxWidth: 20,
+                        fontColor: '#ffffff'
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        beginAtZero: true,
+                        ticks: {
+                            fontColor: '#ffffff'
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            fontColor: '#ffffff'
+                        }
+                    }]
+                }
+            }
+        });
+        new Chart(document.getElementById('barChart3'), {
+            type: 'bar',
+            data: {
+                labels: pieLabels3,
+                datasets: [{
+                    label: 'Quantity',
+                    data: pieValues3,
+                    backgroundColor: ['#6cb4b8', '#00f0ff', '#ff9f1c', '#6cb4b8', '#00f0ff', '#ff9f1c', '#6cb4b8', '#00f0ff', '#ff9f1c', '#6cb4b8', '#00f0ff', '#ff9f1c', '#6cb4b8', '#00f0ff', '#ff9f1c', '#6cb4b8']
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'right',
+                    align: 'start',
+                    labels: {
+                        boxWidth: 20,
+                        fontColor: '#ffffff'
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        beginAtZero: true,
+                        ticks: {
+                            fontColor: '#ffffff'
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            fontColor: '#ffffff'
+                        }
+                    }]
+                }
+            }
+        });
+
+        // Creating bar charts for original bar charts
+        new Chart(document.getElementById('barChart4'), {
+            type: 'bar',
+            data: {
+                labels: barLabels1,
+                datasets: [{
+                    label: 'Quantity',
+                    data: barValues1,
+                    backgroundColor: '#6cb4b8'
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontColor: '#ffffff'
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            fontColor: '#ffffff'
+                        }
+                    }]
+                }
+            }
+        });
+        new Chart(document.getElementById('barChart5'), {
+            type: 'bar',
+            data: {
+                labels: barLabels2,
+                datasets: [{
+                    label: 'Quantity',
+                    data: barValues2,
+                    backgroundColor: '#00f0ff'
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontColor: '#ffffff'
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            fontColor: '#ffffff'
+                        }
+                    }]
+                }
+            }
+        });
+
+        // Function to go back to the previous page
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
